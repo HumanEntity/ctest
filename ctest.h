@@ -45,7 +45,8 @@ static unsigned int failed = 0;
 static void execute_tests(unsigned int count, ...) {
 	va_list list;
 	va_start(list, count);
-	for(int i=0; i<=count; ++i) {
+	int i;
+	for(i=0; i<=count; ++i) {
 		RESULT (*test)();
 		test = va_arg(list, TEST);
 		ctest_run(test);
