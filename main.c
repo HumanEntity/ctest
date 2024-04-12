@@ -9,8 +9,11 @@ RESULT test2() {
 	ctest_succes();
 }
 
+RESULT test3() {
+	ctest_assert(1);
+	ctest_succes();
+}
+
 int main() {
-	ctest_run(test1);
-	ctest_run(test2);
-	ctest_summary();
+	ctest_create(test1, test2, test3);
 }
