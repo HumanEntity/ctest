@@ -1,9 +1,11 @@
 #include <stdio.h>
+#include <stdarg.h>
 
 #define CTEST_SUCCES 0
 #define CTEST_FAILURE 1
 
 typedef char RESULT;
+typedef RESULT(*TEST)();
 
 // Checks `value`. Returns string when assertion failed
 #define ctest_assert(value) do { \
@@ -33,9 +35,25 @@ typedef char RESULT;
 	printf("Total: %d\n", run); \
 } while(0)
 
+#define ctest_create(...) do { \
+	execute_tests(sizeof(#__VA_ARGS__) / sizeof(TEST), __VA_ARGS__); \
+} while(0)
+
 static unsigned int run = 0;
 static unsigned int failed = 0;
 
+static void execute_tests(unsigned int count, ...) {
+	va_list list;
+	va_start(list, count);
+	for(int i=0; i<=count; ++i) {
+		RESULT (*test)();
+		test = va_arg(list, TEST);
+		ctest_run(test);
+	}
+	va_end(list);
+
+	ctest_summary();
+}
 
 /*
  * Basic example is something like this:
