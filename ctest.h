@@ -4,6 +4,7 @@
 #define CTEST_SUCCES 0
 #define CTEST_FAILURE 1
 
+// Test result type
 typedef struct {
 	char status;
 	char* message;
@@ -25,6 +26,7 @@ typedef RESULT(*TEST)();
 	}\
 } while(0)
 
+// Returns success value
 #define ctest_succes() do { RESULT succes = { CTEST_SUCCES, NULL, NULL, 0 }; return succes; } while(0)
 
 // Runs `test`. `test` must have no arguments.
@@ -37,6 +39,7 @@ typedef RESULT(*TEST)();
 	} \
 } while(0)
 
+// Gives simple summary of executed tests
 #define ctest_summary() do { \
 	printf("\n-----------------\n"); \
 	printf("Succeded: %d\n", run - failed); \
@@ -44,6 +47,7 @@ typedef RESULT(*TEST)();
 	printf("Total: %d\n", run); \
 } while(0)
 
+// Creates test group
 #define ctest_create(...) do { \
 	execute_tests(sizeof(#__VA_ARGS__) / sizeof(TEST), __VA_ARGS__); \
 } while(0)
