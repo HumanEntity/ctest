@@ -1,16 +1,16 @@
 #include "ctest.h"
 
 RESULT test1() {
-	ctest_assert(0);
+	ctest_assert("This always fails", 0);
 	ctest_succes();
 }
 RESULT test2() {
-	ctest_assert(1);
+	ctest_assert("This always passes", 1);
 	ctest_succes();
 }
 
 RESULT test3() {
-	ctest_assert(1);
+	ctest_assert("This too!", 1);
 	ctest_succes();
 }
 
