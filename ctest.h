@@ -4,26 +4,35 @@
 #define CTEST_SUCCES 0
 #define CTEST_FAILURE 1
 
-typedef char RESULT;
+typedef struct {
+	char status;
+	char* message;
+	char* filename;
+	unsigned int line;
+} RESULT;
 typedef RESULT(*TEST)();
 
 // Checks `value`. Returns string when assertion failed
-#define ctest_assert(value) do { \
+#define ctest_assert(message, value) do { \
 	if (!value) { \
-		char buffer[128]; \
-		sprintf(buffer, "%s:%d Assertion Failed", __FILE__, __LINE__); \
-		printf("%s\n", buffer); \
-		return CTEST_FAILURE; \
+		RESULT failure = { \
+			CTEST_FAILURE, \
+			message, \
+			__FILE__, \
+			__LINE__, \
+		}; \
+		return failure; \
 	}\
 } while(0)
 
-#define ctest_succes() return CTEST_SUCCES;
+#define ctest_succes() do { RESULT succes = { CTEST_SUCCES, NULL, NULL, 0 }; return succes; } while(0)
 
 // Runs `test`. `test` must have no arguments.
 #define ctest_run(test) do { \
-	char message = test(); \
+	RESULT result = test(); \
 	++run; \
-	if (message != CTEST_SUCCES) { \
+	if (result.status != CTEST_SUCCES) { \
+		fprintf(stderr, "%s:%d %s\n", result.filename, result.line, result.message); \
 		++failed; \
 	} \
 } while(0)
