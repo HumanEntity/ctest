@@ -17,7 +17,7 @@ RESULT test1() {
 
 int main(int argc, char **argv) {
     #ifdef CTEST_ENABLE
-    ctest_run(test1);
+    ctest_create(test1);
     #else
     // Your code
     #endif
