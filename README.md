@@ -12,7 +12,7 @@ Example usage:
 #include <ctest.h>
 
 RESULT test1() {
-    ctest_assert(1);
+    ctest_assert("This works!", 1);
 }
 
 int main(int argc, char **argv) {
