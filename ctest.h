@@ -3,6 +3,8 @@
 #define CTEST_SUCCES 0
 #define CTEST_FAILURE 1
 
+typedef char RESULT;
+
 // Checks `value`. Returns string when assertion failed
 #define ctest_assert(value) do { \
 	if (!value) { \

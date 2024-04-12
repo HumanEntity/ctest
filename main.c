@@ -1,10 +1,10 @@
 #include "ctest.h"
 
-char test1() {
+RESULT test1() {
 	ctest_assert(0);
 	ctest_succes();
 }
-char test2() {
+RESULT test2() {
 	ctest_assert(1);
 	ctest_succes();
 }
